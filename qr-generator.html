@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberClicker QR Access</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a1a 50%, #0a1a1a 100%);
+            color: #00ffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #00ffff;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+            max-width: 500px;
+        }
+        
+        h1 {
+            color: #ff00ff;
+            text-shadow: 0 0 10px #ff00ff;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        
+        .qr-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: inline-block;
+        }
+        
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            border: 2px solid #000;
+        }
+        
+        .instructions {
+            color: #00ff00;
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+        
+        .url-box {
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid #00ffff;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 15px 0;
+            word-break: break-all;
+            font-family: monospace;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .option-card {
+            background: rgba(0, 30, 30, 0.8);
+            border: 1px solid #00ffff;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .option-card:hover {
+            border-color: #00ff00;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+        }
+        
+        .option-title {
+            color: #ffff00;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .option-desc {
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #001a1a, #003333);
+            border: 2px solid #00ffff;
+            color: #00ffff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            border-color: #00ff00;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+        }
+        
+        .github-link {
+            color: #ff00ff;
+            text-decoration: none;
+            border: 1px solid #ff00ff;
+            padding: 8px 15px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .github-link:hover {
+            background: rgba(255, 0, 255, 0.1);
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 CYBERCLICKER ACCESS</h1>
+        
+        <div class="qr-container">
+            <canvas id="qr-code" class="qr-code"></canvas>
+        </div>
+        
+        <div class="instructions">
+            <strong>📱 ESCANEA EL QR CON TU MÓVIL</strong><br>
+            ¡Acceso instantáneo a tu imperio ciberpunk!
+        </div>
+        
+        <div class="url-box" id="current-url">
+            Cargando URL...
+        </div>
+        
+        <div class="options">
+            <div class="option-card" onclick="generateQR('mobile')">
+                <div class="option-title">📱 MÓVIL</div>
+                <div class="option-desc">Versión optimizada para móviles</div>
+            </div>
+            
+            <div class="option-card" onclick="generateQR('desktop')">
+                <div class="option-title">💻 ESCRITORIO</div>
+                <div class="option-desc">Versión completa de escritorio</div>
+            </div>
+            
+            <div class="option-card" onclick="generateQR('launcher')">
+                <div class="option-title">🚀 LAUNCHER</div>
+                <div class="option-desc">Página de introducción</div>
+            </div>
+            
+            <div class="option-card" onclick="generateQR('repo')">
+                <div class="option-title">📂 CÓDIGO</div>
+                <div class="option-desc">Repositorio en GitHub</div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 20px;">
+            <button onclick="copyURL()">📋 COPIAR URL</button>
+            <button onclick="shareURL()">📤 COMPARTIR</button>
+        </div>
+        
+        <div style="margin-top: 20px;">
+            <a href="https://github.com/tu-usuario/cyberclicker-game" class="github-link" target="_blank">
+                ⭐ Ver en GitHub
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script>
+        let currentURL = '';
+        
+        function getBaseURL() {
+            const host = window.location.host;
+            const protocol = window.location.protocol;
+            
+            // Detectar si estamos en GitHub Pages
+            if (host.includes('github.io')) {
+                return `${protocol}//${host}`;
+            }
+            
+            // Para desarrollo local
+            if (host.includes('localhost') || host.includes('127.0.0.1')) {
+                return `${protocol}//${host}`;
+            }
+            
+            // URL base genérica
+            return `${protocol}//${host}`;
+        }
+        
+        function generateQR(type) {
+            const baseURL = getBaseURL();
+            let url;
+            
+            switch(type) {
+                case 'mobile':
+                    url = `${baseURL}/mobile.html`;
+                    break;
+                case 'desktop':
+                    url = `${baseURL}/index.html`;
+                    break;
+                case 'launcher':
+                    url = `${baseURL}/launcher.html`;
+                    break;
+                case 'repo':
+                    url = 'https://github.com/tu-usuario/cyberclicker-game';
+                    break;
+                default:
+                    url = `${baseURL}/mobile.html`;
+            }
+            
+            currentURL = url;
+            document.getElementById('current-url').textContent = url;
+            
+            // Generar QR
+            const canvas = document.getElementById('qr-code');
+            QRCode.toCanvas(canvas, url, {
+                width: 200,
+                height: 200,
+                colorDark: '#000000',
+                colorLight: '#ffffff',
+                margin: 2,
+                errorCorrectionLevel: 'M'
+            }, function (error) {
+                if (error) console.error(error);
+                console.log('QR generado para:', url);
+            });
+        }
+        
+        function copyURL() {
+            if (currentURL) {
+                navigator.clipboard.writeText(currentURL).then(() => {
+                    alert('✅ URL copiada al portapapeles!');
+                }).catch(() => {
+                    // Fallback para navegadores sin soporte
+                    const textArea = document.createElement('textarea');
+                    textArea.value = currentURL;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    alert('✅ URL copiada al portapapeles!');
+                });
+            }
+        }
+        
+        function shareURL() {
+            if (navigator.share && currentURL) {
+                navigator.share({
+                    title: 'CyberClicker - Imperio Ciberpunk',
+                    text: '¡Juega a este increíble juego clicker ciberpunk!',
+                    url: currentURL
+                }).catch(console.error);
+            } else {
+                copyURL();
+            }
+        }
+        
+        // Generar QR inicial para móvil
+        window.onload = function() {
+            generateQR('mobile');
+        };
+    </script>
+</body>
+</html>
