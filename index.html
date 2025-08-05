@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberClicker - Imperio Ciberpunk</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Header con información del jugador -->
+        <header class="game-header">
+            <div class="header-content">
+                <h1 class="game-title">CYBER<span class="accent">CLICKER</span></h1>
+                <div class="stats-display">
+                    <div class="stat-item">
+                        <span class="stat-label">CRÉDITOS:</span>
+                        <span class="stat-value" id="credits">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">C/SEC:</span>
+                        <span class="stat-value" id="credits-per-second">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">CLICKS:</span>
+                        <span class="stat-value" id="total-clicks">0</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Área principal de juego -->
+        <main class="game-main">
+            <!-- Panel izquierdo - Clicker principal -->
+            <section class="clicker-panel">
+                <div class="stage-info">
+                    <h2 id="current-stage">MEGACIUDAD NEON</h2>
+                    <p id="stage-description">Un hacker solitario en las calles lluviosas de la metrópolis...</p>
+                </div>
+                
+                <div class="click-area">
+                    <button id="main-clicker" class="cyber-button">
+                        <div class="button-content">
+                            <div class="click-icon">⚡</div>
+                            <div class="click-text">HACKEAR SISTEMA</div>
+                            <div class="click-reward">+<span id="click-value">1</span> créditos</div>
+                        </div>
+                        <div class="button-glow"></div>
+                    </button>
+                </div>
+
+                <!-- Mejoras de click -->
+                <div class="click-upgrades">
+                    <h3>MEJORAS DE HACK</h3>
+                    <div class="upgrades-list" id="click-upgrades">
+                        <!-- Se llenarán dinámicamente -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Panel central - Unidades pasivas -->
+            <section class="production-panel">
+                <h3>UNIDADES AUTOMÁTICAS</h3>
+                <div class="buildings-list" id="buildings-list">
+                    <!-- Se llenarán dinámicamente -->
+                </div>
+            </section>
+
+            <!-- Panel derecho - Mejoras y tecnologías -->
+            <section class="upgrades-panel">
+                <div class="upgrades-section">
+                    <h3>TECNOLOGÍAS</h3>
+                    <div class="upgrades-list" id="tech-upgrades">
+                        <!-- Se llenarán dinámicamente -->
+                    </div>
+                </div>
+
+                <div class="achievements-section">
+                    <h3>LOGROS</h3>
+                    <div class="achievements-list" id="achievements">
+                        <!-- Se llenarán dinámicamente -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Panel de progreso inferior -->
+        <footer class="progress-panel">
+            <div class="progress-container">
+                <div class="progress-label">Progreso hacia próxima etapa</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="stage-progress"></div>
+                </div>
+                <div class="progress-text" id="progress-text">0 / 1,000 créditos</div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Notificaciones -->
+    <div id="notifications"></div>
+
+    <!-- Efectos de partículas -->
+    <div id="particle-container"></div>
+
+    <script src="game.js"></script>
+</body>
+</html>
