@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a0a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1a0a1a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0a1a1a;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="lightning-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00ffff;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#ff00ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00ff00;stop-opacity:1" />
+    </linearGradient>
+    
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <filter id="neon-glow">
+      <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Fondo -->
+  <rect width="512" height="512" fill="url(#bg-gradient)" rx="80"/>
+  
+  <!-- Círculo exterior neón -->
+  <circle cx="256" cy="256" r="200" fill="none" stroke="#00ffff" stroke-width="8" opacity="0.6" filter="url(#glow)"/>
+  
+  <!-- Círculo interior -->
+  <circle cx="256" cy="256" r="160" fill="none" stroke="#ff00ff" stroke-width="4" opacity="0.8"/>
+  
+  <!-- Rayo principal -->
+  <path d="M 256 100 L 200 220 L 240 220 L 180 320 L 240 200 L 200 200 Z" 
+        fill="url(#lightning-gradient)" 
+        filter="url(#neon-glow)" 
+        transform="translate(50, 50) scale(1.5)"/>
+  
+  <!-- Rayos secundarios -->
+  <path d="M 180 150 L 160 180 L 170 180 L 150 210" 
+        stroke="#00ffff" 
+        stroke-width="6" 
+        fill="none" 
+        filter="url(#glow)"
+        stroke-linecap="round"/>
+        
+  <path d="M 350 180 L 370 150 L 360 150 L 380 120" 
+        stroke="#00ff00" 
+        stroke-width="6" 
+        fill="none" 
+        filter="url(#glow)"
+        stroke-linecap="round"/>
+        
+  <path d="M 160 350 L 140 320 L 150 320 L 130 290" 
+        stroke="#ff00ff" 
+        stroke-width="6" 
+        fill="none" 
+        filter="url(#glow)"
+        stroke-linecap="round"/>
+        
+  <path d="M 380 340 L 360 370 L 370 370 L 350 400" 
+        stroke="#ffff00" 
+        stroke-width="6" 
+        fill="none" 
+        filter="url(#glow)"
+        stroke-linecap="round"/>
+  
+  <!-- Texto CYBER -->
+  <text x="256" y="420" 
+        font-family="'Courier New', monospace" 
+        font-size="36" 
+        font-weight="bold" 
+        text-anchor="middle" 
+        fill="#00ffff" 
+        filter="url(#neon-glow)">CYBER</text>
+        
+  <!-- Texto CLICK -->
+  <text x="256" y="460" 
+        font-family="'Courier New', monospace" 
+        font-size="24" 
+        font-weight="bold" 
+        text-anchor="middle" 
+        fill="#ff00ff" 
+        filter="url(#glow)">CLICK</text>
+  
+  <!-- Partículas decorativas -->
+  <circle cx="120" cy="120" r="3" fill="#00ffff" opacity="0.8" filter="url(#glow)"/>
+  <circle cx="400" cy="100" r="2" fill="#ff00ff" opacity="0.8" filter="url(#glow)"/>
+  <circle cx="100" cy="400" r="2" fill="#00ff00" opacity="0.8" filter="url(#glow)"/>
+  <circle cx="420" cy="420" r="3" fill="#ffff00" opacity="0.8" filter="url(#glow)"/>
+  <circle cx="50" cy="250" r="2" fill="#00ffff" opacity="0.6" filter="url(#glow)"/>
+  <circle cx="470" cy="280" r="2" fill="#ff00ff" opacity="0.6" filter="url(#glow)"/>
+</svg>
