@@ -2,9 +2,8 @@ name: Deploy CyberClicker to GitHub Pages
 
 on:
   push:
-    branches: [ main, master, cursor/develop-cyberpunk-incremental-game-8248 ]
-  pull_request:
     branches: [ main, master ]
+  workflow_dispatch:
 
 permissions:
   contents: read
